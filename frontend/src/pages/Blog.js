@@ -35,16 +35,35 @@ const Blog = () => {
                 <section className="page-section">
                     <div className="blog-grid">
                         {blogPosts.map((post, index) => (
-                            <div key={post._id || index} className="blog-card">
-                                <div className="blog-date">{new Date(post.createdAt || Date.now()).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
-                                <h3>{post.title}</h3>
-                                <p>{post.excerpt}</p>
-                                <button
-                                    className="blog-link"
-                                    onClick={() => navigate(`/blog/${post.slug}`)}
-                                >
-                                    Read More →
-                                </button>
+                            <div key={post._id || index} className="blog-card" onClick={() => navigate(`/blog/${post.slug}`)}>
+                                <div className="blog-card-image">
+                                    {post.image ? (
+                                        <img src={post.image} alt={post.title} />
+                                    ) : (
+                                        <div className="blog-image-placeholder">
+                                            <span>Printer Guide</span>
+                                        </div>
+                                    )}
+                                    <div className="blog-date">
+                                        {new Date(post.createdAt || Date.now()).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="blog-card-content">
+                                    <h3>{post.title}</h3>
+                                    <p>{post.excerpt}</p>
+                                    <button
+                                        className="blog-link"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/blog/${post.slug}`);
+                                        }}
+                                    >
+                                        Read More →
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

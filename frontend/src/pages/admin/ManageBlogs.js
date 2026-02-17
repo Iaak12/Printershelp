@@ -55,6 +55,7 @@ const ManageBlogs = () => {
                 <table className="admin-table">
                     <thead>
                         <tr>
+                            <th>Image</th>
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Date</th>
@@ -69,6 +70,13 @@ const ManageBlogs = () => {
                         ) : (
                             blogs.map(blog => (
                                 <tr key={blog._id}>
+                                    <td>
+                                        {blog.image ? (
+                                            <img src={blog.image} alt={blog.title} style={{ width: '50px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                                        ) : (
+                                            <div style={{ width: '50px', height: '40px', background: '#eee', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: '#888' }}>No Img</div>
+                                        )}
+                                    </td>
                                     <td>{blog.title}</td>
                                     <td>{blog.slug}</td>
                                     <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
