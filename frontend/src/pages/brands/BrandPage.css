@@ -1,0 +1,213 @@
+/* ================= BRAND PAGE ================= */
+
+.brand-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+
+/* ================= HERO SECTION ================= */
+
+.brand-hero {
+  background: linear-gradient(135deg, #1D4ED8, #0F3C91);
+  padding: 120px 0;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional subtle glow effect */
+.brand-hero::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  top: -150px;
+  right: -150px;
+  filter: blur(80px);
+}
+
+/* White Logo Box */
+.brand-logo-box {
+  background: #ffffff;
+  padding: 15px 25px;
+  border-radius: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 35px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-logo-box:hover {
+  transform: translateY(-6px);
+}
+
+.brand-logo-box img {
+    width: 75px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Hero Text */
+.brand-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  max-width: 760px;
+  margin: 0 auto;
+  color: #ffffff;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ================= CONTENT SECTIONS ================= */
+
+.brand-section {
+  padding: 90px 0;
+}
+
+.brand-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.brand-text {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #475569;
+  max-width: 800px;
+}
+
+
+/* ================= SERVICES GRID ================= */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 25px;
+  background: #ffffff;
+  border-radius: 18px;
+  font-weight: 500;
+  color: #1e293b;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+}
+
+.service-bullet {
+  color: #16a34a;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+
+/* ================= CTA SECTION ================= */
+
+.brand-cta {
+  background: linear-gradient(135deg, #f1f5f9, #ffffff);
+  padding: 80px 50px;
+  border-radius: 28px;
+  text-align: center;
+  margin: 80px 0;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+}
+
+.brand-cta h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.brand-cta p {
+  font-size: 1.15rem;
+  color: #64748b;
+  margin-bottom: 30px;
+}
+
+.brand-cta .btn {
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+
+  .brand-hero {
+    padding: 90px 20px;
+  }
+
+  .brand-hero h1 {
+    font-size: 2.3rem;
+  }
+
+  .brand-logo-box {
+    padding: 25px 35px;
+  }
+
+  .brand-logo-box img {
+    width: 120px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-section {
+    padding: 70px 20px;
+  }
+
+  .brand-cta {
+    padding: 60px 25px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .brand-hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .brand-subtitle {
+    font-size: 1rem;
+  }
+
+  .brand-logo-box img {
+    width: 100px;
+  }
+}

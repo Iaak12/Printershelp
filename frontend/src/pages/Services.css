@@ -1,0 +1,123 @@
+.services-hero {
+  background: linear-gradient(135deg, #1D4ED8, #0F3C91);
+  padding: 80px 0;
+  text-align: center;
+  color: white;
+}
+
+.services-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.services-hero p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+/* ================= REMOTE SUPPORT SECTION ================= */
+
+.remote-support-section {
+  background: linear-gradient(135deg, #0f3c91, #1d4ed8);
+  padding: 70px 0;
+  color: white;
+  overflow: hidden;
+}
+
+.remote-support-wrapper {
+  display: grid;
+  grid-template-columns: 200px 1fr 500px;
+  align-items: center;
+  gap: 40px;
+}
+
+/* LEFT ICON */
+.remote-support-icon img {
+  width: 180px;
+  max-width: 100%;
+}
+
+/* CENTER CONTENT */
+.remote-support-content h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.remote-support-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* RIGHT IMAGE */
+.remote-support-image img {
+  width: 100%;
+  max-width: 500px;
+}
+/* ================= RESPONSIVE REMOTE SUPPORT ================= */
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .remote-support-wrapper {
+    grid-template-columns: 160px 1fr;
+    gap: 30px;
+  }
+
+  .remote-support-image {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .remote-support-image img {
+    max-width: 400px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .remote-support-section {
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .remote-support-wrapper {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .remote-support-icon {
+    text-align: center;
+  }
+
+  .remote-support-icon img {
+    width: 140px;
+  }
+
+  .remote-support-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .remote-support-content p {
+    font-size: 1rem;
+  }
+
+  .remote-support-image img {
+    max-width: 100%;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .remote-support-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .remote-support-section {
+    padding: 50px 15px;
+  }
+}

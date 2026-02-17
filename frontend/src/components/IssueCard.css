@@ -1,0 +1,108 @@
+.issue-card {
+    background: var(--surface-white);
+    border-radius: var(--radius-2xl);
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+/* Soft gradient hover glow */
+.issue-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 102, 194, 0.05),
+        rgba(10, 102, 194, 0.02)
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.issue-card:hover::before {
+    opacity: 1;
+}
+
+.issue-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-2xl);
+    border-color: rgba(10, 102, 194, 0.15);
+}
+
+.issue-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.8rem;
+
+    background: linear-gradient(
+        135deg,
+        rgba(10, 102, 194, 0.1),
+        rgba(10, 102, 194, 0.05)
+    );
+
+    color: var(--primary-blue);
+
+    box-shadow: 
+        0 8px 20px rgba(10, 102, 194, 0.08),
+        inset 0 1px 2px rgba(255,255,255,0.4);
+
+    transition: all var(--transition-base);
+}
+
+/* Hover effect */
+.issue-card:hover .issue-icon {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 15px 30px rgba(10, 102, 194, 0.25);
+}
+
+
+/* Title */
+.issue-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* CTA always visible (clean look) */
+.issue-cta {
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    transition: all var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.issue-card:hover .issue-cta {
+    gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .issue-card {
+        padding: 1.5rem;
+        min-height: 200px;
+    }
+}

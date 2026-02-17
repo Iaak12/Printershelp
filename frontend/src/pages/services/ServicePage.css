@@ -1,0 +1,143 @@
+.service-page {
+    min-height: 100vh;
+}
+
+.service-hero {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+    color: var(--white);
+    padding: var(--spacing-4xl) 0;
+    text-align: center;
+}
+
+.service-icon-large {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.service-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--white);
+}
+
+.service-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+.service-section {
+    padding: var(--spacing-3xl) 0;
+}
+
+.service-section h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xl);
+    color: var(--gray-900);
+}
+
+.issues-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.issue-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    color: var(--gray-800);
+}
+
+.issue-item svg {
+    color: var(--trust-green);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.brands-text {
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-700);
+}
+
+.brands-list {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.brand-tag {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    color: var(--white);
+    font-size: 1rem;
+}
+
+.brand-tag.hp {
+    background: var(--hp-blue);
+}
+
+.brand-tag.canon {
+    background: var(--canon-red);
+}
+
+.brand-tag.epson {
+    background: var(--epson-blue);
+}
+
+.brand-tag.brother {
+    background: var(--brother-blue);
+}
+
+.service-cta {
+    background: var(--gray-50);
+    padding: var(--spacing-3xl);
+    border-radius: var(--radius-2xl);
+    text-align: center;
+    margin: var(--spacing-3xl) 0;
+}
+
+.service-cta h3 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+}
+
+.service-cta p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    margin-bottom: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .service-hero h1 {
+        font-size: 2rem;
+    }
+
+    .issues-list {
+        grid-template-columns: 1fr;
+    }
+
+    .brands-list {
+        flex-direction: column;
+    }
+
+    .brand-tag {
+        text-align: center;
+    }
+}
