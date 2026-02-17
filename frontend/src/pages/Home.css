@@ -656,6 +656,38 @@
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
 }
 
+/* Mobile specific slider optimizations */
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-width: 300px !important;
+    max-width: 300px !important;
+    padding: 25px;
+  }
+
+  .testimonial-track {
+    animation-duration: 20s !important;
+    /* Faster on mobile for better engagement */
+  }
+
+  .testimonial-premium-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial-card {
+    min-width: 260px !important;
+    max-width: 260px !important;
+    padding: 20px;
+  }
+
+  .testimonial-track {
+    animation-duration: 15s !important;
+    gap: 20px;
+  }
+}
+
+
 /* Top Section */
 .testimonial-top {
   display: flex;
