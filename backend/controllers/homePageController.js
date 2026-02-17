@@ -1,4 +1,5 @@
 const HomePage = require('../models/HomePage');
+const Blog = require('../models/Blog');
 
 // @desc    Get Home Page Data
 // @route   GET /api/homepage
@@ -7,17 +8,22 @@ exports.getHomePage = async (req, res, next) => {
     try {
         let homePage = await HomePage.findOne();
 
+        // Fetch latest 3 blogs to include in home page data
+        const latestBlogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
+
         // If no data exists, return default empty structure or predefined defaults from Schema
         if (!homePage) {
-            // Optionally create one if it doesn't exist
-            // homePage = await HomePage.create({});
             return res.status(404).json({ success: false, message: 'Home Page data not found' });
         }
 
         res.status(200).json({
             success: true,
-            data: homePage
+            data: {
+                ...homePage.toObject(),
+                latestBlogs
+            }
         });
+
     } catch (err) {
         res.status(500).json({
             success: false,

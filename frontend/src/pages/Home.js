@@ -230,32 +230,44 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Section 7: Blog Section (Static for now, links to /blog) */}
             <section className="section blog-section-premium">
                 <div className="container">
                     <h2 className="section-title text-center">
                         Printer Help & Troubleshooting Guides
                     </h2>
                     <div className="blog-grid">
-                        {/* Static content kept as placeholder or can be made dynamic later */}
-                        <div className="blog-card">
-                            <div className="blog-badge">Troubleshooting</div>
-                            <h4>How to Fix Printer Offline Issues</h4>
-                            <p>Step-by-step guide to resolve common offline printer problems and restore connectivity quickly.</p>
-                            <a href="/blog" className="blog-link">Read More →</a>
-                        </div>
-                        <div className="blog-card">
-                            <div className="blog-badge">Setup</div>
-                            <h4>WiFi Printer Setup Guide</h4>
-                            <p>Complete guide to connecting your printer to wireless networks securely and efficiently.</p>
-                            <a href="/blog" className="blog-link">Read More →</a>
-                        </div>
-                        <div className="blog-card">
-                            <div className="blog-badge">Error Codes</div>
-                            <h4>Understanding Printer Error Codes</h4>
-                            <p>Learn common printer error codes and how to troubleshoot them without frustration.</p>
-                            <a href="/blog" className="blog-link">Read More →</a>
-                        </div>
+                        {(homeData.latestBlogs && homeData.latestBlogs.length > 0 ? homeData.latestBlogs : []).map((post, index) => (
+                            <div key={post._id || index} className="blog-card" onClick={() => navigate(`/blog/${post.slug}`)}>
+                                <div className="blog-card-image">
+                                    {post.image ? (
+                                        <img src={post.image} alt={post.title} />
+                                    ) : (
+                                        <div className="blog-image-placeholder">
+                                            <span>Printer Guide</span>
+                                        </div>
+                                    )}
+                                    <div className="blog-date">
+                                        {new Date(post.createdAt || Date.now()).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="blog-card-content">
+                                    <h3>{post.title}</h3>
+                                    <p>{post.excerpt}</p>
+                                    <button
+                                        className="blog-link"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/blog/${post.slug}`);
+                                        }}
+                                    >
+                                        Read More →
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                     <div className="blog-cta-wrapper">
                         <button className="btn btn-primary btn-large" onClick={() => navigate('/blog')}>
