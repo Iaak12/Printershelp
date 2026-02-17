@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../services/api';
 import './AdminPages.css';
@@ -20,13 +20,7 @@ const ServiceEditor = () => {
     const [iconFile, setIconFile] = useState(null);
     const [currentIcon, setCurrentIcon] = useState('');
 
-    useEffect(() => {
-        if (isEditMode) {
-            fetchService();
-        }
-    }, [id]);
-
-    const fetchService = async () => {
+    const fetchService = useCallback(async () => {
         try {
             setLoading(true);
             const res = await api.get(`/services/${id}`);
@@ -45,7 +39,13 @@ const ServiceEditor = () => {
             setError('Failed to fetch service details');
             setLoading(false);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        if (isEditMode) {
+            fetchService();
+        }
+    }, [fetchService, isEditMode]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

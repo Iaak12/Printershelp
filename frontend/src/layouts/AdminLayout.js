@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { FaHome, FaFileAlt, FaSignOutAlt, FaTachometerAlt, FaChartBar, FaInfoCircle, FaPhoneAlt, FaEdit, FaQuestionCircle, FaGlobe, FaBuilding } from 'react-icons/fa';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { FaHome, FaSignOutAlt, FaTachometerAlt, FaChartBar, FaInfoCircle, FaPhoneAlt, FaEdit, FaQuestionCircle, FaBuilding } from 'react-icons/fa';
 import { authService } from '../services/authService';
 import './AdminLayout.css';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -16,13 +16,7 @@ const PageEditor = () => {
         seoDescription: ''
     });
 
-    useEffect(() => {
-        if (!isNew) {
-            fetchPage();
-        }
-    }, [slug]);
-
-    const fetchPage = async () => {
+    const fetchPage = useCallback(async () => {
         try {
             const res = await api.get(`/pages/${slug}`);
             if (res.data.success) {
@@ -41,7 +35,13 @@ const PageEditor = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [slug]);
+
+    useEffect(() => {
+        if (!isNew) {
+            fetchPage();
+        }
+    }, [fetchPage, isNew]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

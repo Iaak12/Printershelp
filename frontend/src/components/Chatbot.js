@@ -99,7 +99,7 @@ const Chatbot = ({ show, onClose, onOpen }) => {
         if (show && !isOpen) {
             setIsOpen(true);
         }
-    }, [show]);
+    }, [show, isOpen]);
 
     return (
         <>

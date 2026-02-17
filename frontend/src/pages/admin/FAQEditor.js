@@ -20,8 +20,7 @@ const FAQEditor = () => {
         if (isEditMode) {
             const fetchFAQ = async () => {
                 try {
-                    const res = await api.get(`/faqs`); // Ideally get by ID, but we have list. Filter for now or get all. 
-                    // Actually api.get('/faqs/:id') isn't implemented in public yet? 
+                    // Fetch all and find, or assume I can implement getById later.                    // Actually api.get('/faqs/:id') isn't implemented in public yet? 
                     // Wait, I implemented getFAQs (all) and update/delete (by ID).
                     // I didn't implement getFAQById in controller!
                     // I'll just fetch all and find, or assume I can implement getById later.
