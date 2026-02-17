@@ -19,6 +19,7 @@ const iconMap = {
 const Home = () => {
     const navigate = useNavigate();
     const [homeData, setHomeData] = useState(null);
+    const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
     // Default FAQs (can be moved to DB later if needed, or fetched from FAQ API)
@@ -50,20 +51,23 @@ const Home = () => {
     useEffect(() => {
         const fetchHomeData = async () => {
             try {
-                const res = await api.get('/homepage');
-                if (res.data.success) {
-                    setHomeData(res.data.data);
+                const [homeRes, blogRes] = await Promise.all([
+                    api.get('/homepage'),
+                    api.get('/blogs')
+                ]);
+
+                if (homeRes.data.success) {
+                    setHomeData(homeRes.data.data);
                 } else {
-                    setError('Success flag false: ' + JSON.stringify(res.data));
+                    setError('Home data fetch failed');
+                }
+
+                if (blogRes.data.success) {
+                    setBlogs(blogRes.data.data.slice(0, 3));
                 }
             } catch (err) {
-                console.error('Failed to fetch home page data', err);
-                setError(err.message || 'Unknown error');
-                if (err.response) {
-                    setError(`Server responded with ${err.response.status}: ${JSON.stringify(err.response.data)}`);
-                } else if (err.request) {
-                    setError('No response received from server. Is backend running on port 5000?');
-                }
+                console.error('Failed to fetch page data', err);
+                setError('Failed to load website content. Please try again later.');
             } finally {
                 setLoading(false);
             }
@@ -236,7 +240,7 @@ const Home = () => {
                         Printer Help & Troubleshooting Guides
                     </h2>
                     <div className="blog-grid">
-                        {(homeData.latestBlogs && homeData.latestBlogs.length > 0 ? homeData.latestBlogs : []).map((post, index) => (
+                        {(blogs && blogs.length > 0 ? blogs : []).map((post, index) => (
                             <div key={post._id || index} className="blog-card" onClick={() => navigate(`/blog/${post.slug}`)}>
                                 <div className="blog-card-image">
                                     {post.image ? (
