@@ -6,7 +6,6 @@ import './StaticPages.css';
 const Blog = () => {
     const navigate = useNavigate();
     const [blogPosts, setBlogPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchBlogs = async () => {
