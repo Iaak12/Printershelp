@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaPrint, FaBars, FaTimes, FaComments } from 'react-icons/fa';
+import { siteSettingsService } from '../services/siteSettingsService';
 import './Header.css';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [settings, setSettings] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const res = await siteSettingsService.getSettings();
+                if (res.success) setSettings(res.data);
+            } catch (err) {
+                console.error('Error fetching settings:', err);
+            }
+        };
+        fetchSettings();
+
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
         };
@@ -34,8 +46,14 @@ const Header = () => {
 
                     {/* Logo */}
                     <Link to="/" className="logo">
-                        <FaPrint className="logo-icon" />
-                        <span className="logo-text">Printer Support Services</span>
+                        {settings?.headerLogo ? (
+                            <img src={settings.headerLogo} alt={settings.siteName || 'Logo'} className="logo-img" style={{ height: '40px', objectFit: 'contain' }} />
+                        ) : (
+                            <>
+                                <FaPrint className="logo-icon" />
+                                <span className="logo-text">{settings?.siteName || 'Printer Support Services'}</span>
+                            </>
+                        )}
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -43,9 +61,9 @@ const Header = () => {
                         <Link to="/" className="nav-link">Home</Link>
                         <Link to="/about" className="nav-link">About Us</Link>
                         <Link to="/services" className="nav-link">Services</Link>
-                       
+
                         <Link to="/blog" className="nav-link">Blog</Link>
-                         <Link to="/faq" className="nav-link">FAQ</Link>
+                        <Link to="/faq" className="nav-link">FAQ</Link>
                     </nav>
 
                     {/* CTA Button */}
@@ -68,11 +86,11 @@ const Header = () => {
                         <Link to="/" className="mobile-nav-link">Home</Link>
                         <Link to="/about" className="mobile-nav-link">About Us</Link>
                         <Link to="/services" className="mobile-nav-link">Services</Link>
-                       
-                        <Link to="/blog" className="mobile-nav-link">Blog</Link>
-                         <Link to="/faq" className="mobile-nav-link">FAQ</Link>
 
-                        <button 
+                        <Link to="/blog" className="mobile-nav-link">Blog</Link>
+                        <Link to="/faq" className="mobile-nav-link">FAQ</Link>
+
+                        <button
                             className="mobile-cta-button"
                             onClick={goToChat}
                         >

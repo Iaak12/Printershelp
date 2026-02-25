@@ -81,18 +81,7 @@ const ChatSupport = () => {
 
       setChatInput('');
       setTimeout(() => {
-        setChatMessages(prev => [...prev, { text: `Nice to meet you, ${name}. What is your email address?`, sender: 'bot' }]);
-      }, 500);
-      setChatStep('email');
-    }
-    else if (chatStep === 'email') {
-      const email = chatInput;
-      setChatData(prev => ({ ...prev, email }));
-      setFormData(prev => ({ ...prev, email })); // Sync
-
-      setChatInput('');
-      setTimeout(() => {
-        setChatMessages(prev => [...prev, { text: "Thanks. Finally, what is your phone number?", sender: 'bot' }]);
+        setChatMessages(prev => [...prev, { text: `Nice to meet you, ${name}. Finally, what is your phone number?`, sender: 'bot' }]);
       }, 500);
       setChatStep('phone');
     }
@@ -121,7 +110,7 @@ const ChatSupport = () => {
 
   /* ========== Wizard Logic ========== */
   const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.phone) {
       alert("Please fill all details");
       return;
     }
@@ -309,16 +298,6 @@ const ChatSupport = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                />
-              </div>
 
               <div className="form-group">
                 <input

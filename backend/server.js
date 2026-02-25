@@ -69,6 +69,7 @@ app.use('/api/homepage', require('./routes/homePage'));
 app.use('/api/about', require('./routes/aboutPage'));
 app.use('/api/services', require('./routes/services'));
 app.use('/api/inquiries', require('./routes/inquiries'));
+app.use('/api/settings', require('./routes/siteSettings'));
 
 // Root route
 app.get('/', (req, res) => {
@@ -78,6 +79,8 @@ app.get('/', (req, res) => {
         version: '1.0.0'
     });
 });
+
+// Test route
 
 // Error handler middleware
 app.use((err, req, res, next) => {

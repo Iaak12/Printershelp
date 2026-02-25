@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { FaHome, FaSignOutAlt, FaTachometerAlt, FaChartBar, FaInfoCircle, FaPhoneAlt, FaEdit, FaQuestionCircle, FaBuilding } from 'react-icons/fa';
+import { FaHome, FaSignOutAlt, FaTachometerAlt, FaChartBar, FaInfoCircle, FaPhoneAlt, FaEdit, FaQuestionCircle, FaBuilding, FaCog } from 'react-icons/fa';
 import { authService } from '../services/authService';
 import './AdminLayout.css';
 
@@ -45,6 +45,9 @@ const AdminLayout = () => {
                     </Link>
                     <Link to="/admin/inquiries" className="nav-item">
                         <FaPhoneAlt /> Manage Inquiries
+                    </Link>
+                    <Link to="/admin/settings" className={`nav-item ${window.location.pathname === '/admin/settings' ? 'active' : ''}`}>
+                        <FaCog /> Settings
                     </Link>
                 </nav>
                 <div className="sidebar-footer">

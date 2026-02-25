@@ -47,6 +47,7 @@ import FAQEditor from './pages/admin/FAQEditor';
 import ManageBlogs from './pages/admin/ManageBlogs';
 import BlogEditor from './pages/admin/BlogEditor';
 import ManageInquiries from './pages/admin/ManageInquiries';
+import Settings from './pages/admin/Settings';
 import AdminRoute from './components/admin/AdminRoute';
 
 function App() {
@@ -108,6 +109,7 @@ function App() {
                         <Route path="blogs/new" element={<BlogEditor />} />
                         <Route path="blogs/edit/:id" element={<BlogEditor />} />
                         <Route path="inquiries" element={<ManageInquiries />} />
+                        <Route path="settings" element={<Settings />} />
                         <Route path="countries" element={<div style={{ padding: '20px' }}>Countries Management (Coming Soon)</div>} />
                     </Route>
                 </Routes>

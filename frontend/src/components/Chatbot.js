@@ -58,7 +58,11 @@ const Chatbot = ({ show, onClose, onOpen }) => {
 
     const handleSelect = (field, value) => {
         setFormData({ ...formData, [field]: value });
-        setTimeout(() => handleNext(), 300);
+        if (step === 4) {
+            setStep(6); // Skip email (step 5)
+        } else {
+            setTimeout(() => handleNext(), 300);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -203,7 +207,7 @@ const Chatbot = ({ show, onClose, onOpen }) => {
                                         />
                                         <button
                                             className="next-button"
-                                            onClick={handleNext}
+                                            onClick={() => handleSelect('phone', '')} // Skip to phone
                                             disabled={!formData.name}
                                         >
                                             Continue
@@ -211,29 +215,6 @@ const Chatbot = ({ show, onClose, onOpen }) => {
                                     </div>
                                 )}
 
-                                {/* Step 5: Email - NEW STEP */}
-                                {step === 5 && (
-                                    <div className="chat-step animate-fadeIn">
-                                        <div className="bot-message">
-                                            <p>Thanks, {formData.name}. What is your email address?</p>
-                                        </div>
-                                        <input
-                                            type="email"
-                                            className="chat-input"
-                                            placeholder="Enter your email"
-                                            value={formData.email}
-                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            required
-                                        />
-                                        <button
-                                            className="next-button"
-                                            onClick={handleNext}
-                                            disabled={!formData.email}
-                                        >
-                                            Continue
-                                        </button>
-                                    </div>
-                                )}
 
                                 {/* Step 6: Phone & Submit */}
                                 {step === 6 && (

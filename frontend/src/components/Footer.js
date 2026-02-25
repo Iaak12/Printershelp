@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaPrint } from 'react-icons/fa';
+import { siteSettingsService } from '../services/siteSettingsService';
 import './Footer.css';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const [settings, setSettings] = useState(null);
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const res = await siteSettingsService.getSettings();
+                if (res.success) setSettings(res.data);
+            } catch (err) {
+                console.error('Error fetching settings:', err);
+            }
+        };
+        fetchSettings();
+    }, []);
 
     return (
         <footer className="footer">
@@ -58,14 +72,20 @@ const Footer = () => {
                 {/* Footer Bottom */}
                 <div className="footer-bottom">
                     <div className="footer-logo">
-                        <FaPrint className="footer-logo-icon" />
-                        <span>Printer Support Services</span>
+                        {settings?.footerLogo ? (
+                            <img src={settings.footerLogo} alt={settings.siteName || 'Logo'} className="footer-logo-img" style={{ height: '40px', objectFit: 'contain' }} />
+                        ) : (
+                            <>
+                                <FaPrint className="footer-logo-icon" />
+                                <span>{settings?.siteName || 'Printer Support Services'}</span>
+                            </>
+                        )}
                     </div>
                     <p className="footer-disclaimer">
-                        Independent printer support service providing guided assistance for common printer issues.
+                        {settings?.siteDescription || 'Independent printer support service providing guided assistance for common printer issues.'}
                     </p>
                     <p className="footer-copyright">
-                        © {currentYear} Printer Support Services. All rights reserved.
+                        © {currentYear} {settings?.siteName || 'Printer Support Services'}. All rights reserved.
                     </p>
                 </div>
             </div>
