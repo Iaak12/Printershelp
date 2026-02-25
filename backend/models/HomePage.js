@@ -38,7 +38,8 @@ const HomePageSchema = new mongoose.Schema({
     }],
     seo: {
         metaTitle: { type: String, default: 'Printer Support Services' },
-        metaDescription: { type: String, default: 'Expert printer support services.' }
+        metaDescription: { type: String, default: 'Expert printer support services.' },
+        metaKeywords: { type: String, default: '' }
     },
     seoContent: {
         title: { type: String, default: '' },

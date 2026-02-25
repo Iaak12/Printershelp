@@ -43,36 +43,47 @@ exports.updateHomePage = async (req, res, next) => {
         // If not sent as 'data' (i.e. old JSON request), fall back to req.body directly
         let updates = req.body.data ? JSON.parse(req.body.data) : req.body;
 
-        if (req.file) {
-            // Handle file upload for hero image
-            // We need to ensure 'hero' object exists in updates before setting image
-            if (!updates.hero) updates.hero = {};
-            if (homePage && homePage.hero) {
-                // Clean merge: keep existing hero data if not in updates (though frontend usually sends full object)
-                updates.hero = { ...homePage.hero.toObject(), ...updates.hero, image: req.file.path };
-            } else {
-                updates.hero.image = req.file.path;
-            }
+        if (req.files && req.files.length > 0) {
+            req.files.forEach(file => {
+                if (file.fieldname === 'heroImage') {
+                    if (!updates.hero) updates.hero = {};
+                    updates.hero.image = file.path;
+                } else if (file.fieldname.startsWith('brandLogo_')) {
+                    const index = parseInt(file.fieldname.split('_')[1]);
+                    if (updates.brands && updates.brands[index]) {
+                        updates.brands[index].logo = file.path;
+                    }
+                }
+            });
         }
 
         if (!homePage) {
-            homePage = await HomePage.create(updates);
+            homePage = new HomePage(updates);
         } else {
-            homePage = await HomePage.findByIdAndUpdate(homePage._id, updates, {
-                new: true,
-                runValidators: true
-            });
+            // Update fields manually to ensure Mongoose tracks changes
+            if (updates.hero) homePage.hero = { ...homePage.hero.toObject(), ...updates.hero };
+            if (updates.brands) homePage.brands = updates.brands;
+            if (updates.issues) homePage.issues = updates.issues;
+            if (updates.whyChooseUs) homePage.whyChooseUs = updates.whyChooseUs;
+            if (updates.processSteps) homePage.processSteps = updates.processSteps;
+            if (updates.trustStats) homePage.trustStats = updates.trustStats;
+            if (updates.testimonials) homePage.testimonials = updates.testimonials;
+            if (updates.seo) homePage.seo = updates.seo;
+            if (updates.seoContent) homePage.seoContent = updates.seoContent;
         }
+
+        await homePage.save();
 
         res.status(200).json({
             success: true,
             data: homePage
         });
-    } catch (err) {
-        console.error(err);
-        res.status(400).json({
+    } catch (error) {
+        console.error('Update Home Page Error:', error);
+        res.status(500).json({
             success: false,
-            message: err.message
+            message: 'Failed to update home page',
+            error: error.message
         });
     }
 };

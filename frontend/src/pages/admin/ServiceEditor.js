@@ -15,7 +15,7 @@ const ServiceEditor = () => {
         title: '',
         shortDescription: '',
         content: '',
-        seo: { metaTitle: '', metaDescription: '' }
+        seo: { metaTitle: '', metaDescription: '', metaKeywords: '' }
     });
     const [iconFile, setIconFile] = useState(null);
     const [currentIcon, setCurrentIcon] = useState('');
@@ -30,7 +30,7 @@ const ServiceEditor = () => {
                     title: s.title,
                     shortDescription: s.shortDescription,
                     content: s.content,
-                    seo: s.seo || { metaTitle: '', metaDescription: '' }
+                    seo: s.seo || { metaTitle: '', metaDescription: '', metaKeywords: '' }
                 });
                 setCurrentIcon(s.icon);
             }
@@ -180,6 +180,16 @@ const ServiceEditor = () => {
                                 className="form-control"
                                 value={formData.seo.metaDescription}
                                 onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Meta Keywords</label>
+                            <textarea
+                                name="seo.metaKeywords"
+                                className="form-control"
+                                value={formData.seo.metaKeywords}
+                                onChange={handleChange}
+                                placeholder="e.g., printer repair, wifi setup, hp support"
                             />
                         </div>
                     </div>

@@ -42,6 +42,39 @@ const About = () => {
         fetchAboutData();
     }, []);
 
+    // Dynamic SEO Update
+    useEffect(() => {
+        if (aboutData && aboutData.seo) {
+            const { metaTitle, metaDescription, metaKeywords } = aboutData.seo;
+
+            if (metaTitle) document.title = metaTitle;
+
+            if (metaDescription) {
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', metaDescription);
+                } else {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    metaDesc.content = metaDescription;
+                    document.head.appendChild(metaDesc);
+                }
+            }
+
+            if (metaKeywords) {
+                let metaKey = document.querySelector('meta[name="keywords"]');
+                if (metaKey) {
+                    metaKey.setAttribute('content', metaKeywords);
+                } else {
+                    metaKey = document.createElement('meta');
+                    metaKey.name = 'keywords';
+                    metaKey.content = metaKeywords;
+                    document.head.appendChild(metaKey);
+                }
+            }
+        }
+    }, [aboutData]);
+
     if (loading) return <div className="loading-spinner">Loading...</div>;
 
     if (error) {

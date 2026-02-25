@@ -13,7 +13,8 @@ const PageEditor = () => {
         slug: '',
         content: '', // Simple text area for now, can be rich text later
         seoTitle: '',
-        seoDescription: ''
+        seoDescription: '',
+        seoKeywords: ''
     });
 
     const fetchPage = useCallback(async () => {
@@ -26,7 +27,8 @@ const PageEditor = () => {
                     slug: page.slug,
                     content: page.sections?.main || '',
                     seoTitle: page.seoMetadata?.title || '',
-                    seoDescription: page.seoMetadata?.description || ''
+                    seoDescription: page.seoMetadata?.description || '',
+                    seoKeywords: page.seoMetadata?.keywords || ''
                 });
             }
         } catch (err) {
@@ -58,7 +60,8 @@ const PageEditor = () => {
             },
             seoMetadata: {
                 title: formData.seoTitle,
-                description: formData.seoDescription
+                description: formData.seoDescription,
+                keywords: formData.seoKeywords
             }
         };
 
@@ -145,6 +148,17 @@ const PageEditor = () => {
                             value={formData.seoDescription}
                             onChange={handleChange}
                             rows="3"
+                        ></textarea>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Meta Keywords</label>
+                        <textarea
+                            name="seoKeywords"
+                            value={formData.seoKeywords}
+                            onChange={handleChange}
+                            rows="2"
+                            placeholder="e.g., about us, printer experts, help"
                         ></textarea>
                     </div>
 

@@ -47,6 +47,39 @@ const BlogDetail = () => {
     fetchBlog();
   }, [slug]);
 
+  // Dynamic SEO Update
+  useEffect(() => {
+    if (post && post.seo) {
+      const { metaTitle, metaDescription, metaKeywords } = post.seo;
+
+      if (metaTitle) document.title = metaTitle;
+
+      if (metaDescription) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.setAttribute('content', metaDescription);
+        } else {
+          metaDesc = document.createElement('meta');
+          metaDesc.name = 'description';
+          metaDesc.content = metaDescription;
+          document.head.appendChild(metaDesc);
+        }
+      }
+
+      if (metaKeywords) {
+        let metaKey = document.querySelector('meta[name="keywords"]');
+        if (metaKey) {
+          metaKey.setAttribute('content', metaKeywords);
+        } else {
+          metaKey = document.createElement('meta');
+          metaKey.name = 'keywords';
+          metaKey.content = metaKeywords;
+          document.head.appendChild(metaKey);
+        }
+      }
+    }
+  }, [post]);
+
   if (loading) {
     return (
       <div className="container text-center" style={{ padding: '100px 0' }}>

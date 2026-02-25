@@ -76,6 +76,39 @@ const Home = () => {
         fetchHomeData();
     }, []);
 
+    // Dynamic SEO Update
+    useEffect(() => {
+        if (homeData && homeData.seo) {
+            const { metaTitle, metaDescription, metaKeywords } = homeData.seo;
+
+            if (metaTitle) document.title = metaTitle;
+
+            if (metaDescription) {
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', metaDescription);
+                } else {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    metaDesc.content = metaDescription;
+                    document.head.appendChild(metaDesc);
+                }
+            }
+
+            if (metaKeywords) {
+                let metaKey = document.querySelector('meta[name="keywords"]');
+                if (metaKey) {
+                    metaKey.setAttribute('content', metaKeywords);
+                } else {
+                    metaKey = document.createElement('meta');
+                    metaKey.name = 'keywords';
+                    metaKey.content = metaKeywords;
+                    document.head.appendChild(metaKey);
+                }
+            }
+        }
+    }, [homeData]);
+
     const goToChatSupport = () => {
         navigate('/chat-support');
         window.scrollTo(0, 0);

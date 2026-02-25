@@ -13,14 +13,14 @@ const BrandCard = ({ brand, logo }) => {
     return (
         <div className="brand-card" onClick={handleClick}>
             <div className="brand-logo-wrapper">
-                <img 
-                    src={logo} 
-                    alt={`${brand} logo`} 
-                    className="brand-logo" 
+                <img
+                    src={logo}
+                    alt={`${brand} logo`}
+                    className="brand-logo"
                 />
             </div>
 
-            <h3 className="brand-name"> Printers</h3>
+            <h3 className="brand-name">{brand}</h3>
             <p className="brand-subtitle">Expert Support</p>
         </div>
     );

@@ -26,6 +26,39 @@ const ServiceDetail = () => {
         fetchService();
     }, [slug]);
 
+    // Dynamic SEO Update
+    useEffect(() => {
+        if (service && service.seo) {
+            const { metaTitle, metaDescription, metaKeywords } = service.seo;
+
+            if (metaTitle) document.title = metaTitle;
+
+            if (metaDescription) {
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', metaDescription);
+                } else {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    metaDesc.content = metaDescription;
+                    document.head.appendChild(metaDesc);
+                }
+            }
+
+            if (metaKeywords) {
+                let metaKey = document.querySelector('meta[name="keywords"]');
+                if (metaKey) {
+                    metaKey.setAttribute('content', metaKeywords);
+                } else {
+                    metaKey = document.createElement('meta');
+                    metaKey.name = 'keywords';
+                    metaKey.content = metaKeywords;
+                    document.head.appendChild(metaKey);
+                }
+            }
+        }
+    }, [service]);
+
     const goToChat = () => {
         navigate('/chat-support');
     };

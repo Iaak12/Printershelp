@@ -20,9 +20,10 @@ const AdminHomeEditor = () => {
             professional: { title: '', description: '' }
         },
         testimonials: [],
-        seo: { metaTitle: '', metaDescription: '' },
+        seo: { metaTitle: '', metaDescription: '', metaKeywords: '' },
         seoContent: { title: '', body: '' }
     });
+    const [brandLogoFiles, setBrandLogoFiles] = useState({});
 
     useEffect(() => {
         fetchHomeData();
@@ -92,6 +93,13 @@ const AdminHomeEditor = () => {
         }
     };
 
+    const handleBrandLogoChange = (index, e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setBrandLogoFiles(prev => ({ ...prev, [index]: file }));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -109,13 +117,15 @@ const AdminHomeEditor = () => {
             // Append other data as JSON string
             // Remove the file object from the JSON payload to avoid circular reference issues or unnecessary data
             const { heroImageFile, ...jsonData } = formData;
+
+            // Append brand logos
+            Object.entries(brandLogoFiles).forEach(([index, file]) => {
+                formDataToSend.append(`brandLogo_${index}`, file);
+            });
+
             formDataToSend.append('data', JSON.stringify(jsonData));
 
-            await api.put('/homepage', formDataToSend, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            await api.put('/homepage', formDataToSend);
 
             setSuccess('Home Page Updated Successfully!');
             setLoading(false);
@@ -123,10 +133,12 @@ const AdminHomeEditor = () => {
 
             // Refresh data to show new image URL from backend
             fetchHomeData();
+            setBrandLogoFiles({});
 
         } catch (err) {
             console.error(err);
-            setError('Failed to update home page');
+            const msg = err.response?.data?.message || 'Failed to update home page';
+            setError(msg);
             setLoading(false);
             window.scrollTo(0, 0);
         }
@@ -215,8 +227,16 @@ const AdminHomeEditor = () => {
                                         <input className="form-control" value={brand.name} onChange={e => handleArrayChange('brands', i, 'name', e.target.value)} />
                                     </div>
                                     <div className="form-group">
-                                        <label>Logo URL</label>
-                                        <input className="form-control" value={brand.logo} onChange={e => handleArrayChange('brands', i, 'logo', e.target.value)} />
+                                        <label>Logo</label>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                            {brand.logo && (
+                                                <div style={{ width: '60px', height: '60px', overflow: 'hidden', borderRadius: '4px', border: '1px solid #ddd', background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <img src={brand.logo} alt={brand.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                                                </div>
+                                            )}
+                                            <input type="file" className="form-control" onChange={e => handleBrandLogoChange(i, e)} accept="image/*" />
+                                        </div>
+                                        <small className="text-muted">Current URL: {brand.logo}</small>
                                     </div>
                                     <button type="button" className="btn-danger btn-sm" onClick={() => removeItem('brands', i)}>
                                         <FaTrash /> Remove
@@ -359,6 +379,15 @@ const AdminHomeEditor = () => {
                             <div className="form-group">
                                 <label>Meta Description</label>
                                 <textarea className="form-control" value={formData.seo.metaDescription} onChange={e => handleChange('seo', 'metaDescription', e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label>Meta Keywords</label>
+                                <textarea
+                                    className="form-control"
+                                    value={formData.seo.metaKeywords}
+                                    onChange={e => handleChange('seo', 'metaKeywords', e.target.value)}
+                                    placeholder="e.g., printer support, online help, tech support"
+                                />
                             </div>
                         </div>
                     )}

@@ -8,7 +8,8 @@ const BlogEditor = () => {
         title: '',
         image: '',
         excerpt: '',
-        content: ''
+        content: '',
+        seo: { metaTitle: '', metaDescription: '', metaKeywords: '' }
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -27,7 +28,8 @@ const BlogEditor = () => {
                             title: res.data.data.title,
                             image: res.data.data.image,
                             excerpt: res.data.data.excerpt,
-                            content: res.data.data.content
+                            content: res.data.data.content,
+                            seo: res.data.data.seo || { metaTitle: '', metaDescription: '', metaKeywords: '' }
                         });
                     }
                 } catch (err) {
@@ -39,6 +41,15 @@ const BlogEditor = () => {
     }, [id, isEditMode]);
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const handleSeoChange = (e) => {
+        const { name, value } = e.target;
+        const field = name.split('.')[1];
+        setFormData(prev => ({
+            ...prev,
+            seo: { ...prev.seo, [field]: value }
+        }));
+    };
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -55,6 +66,7 @@ const BlogEditor = () => {
         data.append('title', formData.title);
         data.append('excerpt', formData.excerpt);
         data.append('content', formData.content);
+        data.append('seo', JSON.stringify(formData.seo));
         if (selectedFile) {
             data.append('image', selectedFile);
         } else if (formData.image) {
@@ -190,6 +202,41 @@ const BlogEditor = () => {
                         <small style={{ color: '#718096', display: 'block', marginTop: '5px' }}>
                             You can write raw HTML, add &lt;style&gt; tags for CSS, and &lt;script&gt; tags for JavaScript logic.
                         </small>
+                    </div>
+
+                    <div className="tab-content" style={{ marginTop: '30px', borderTop: '1px solid #eee', paddingTop: '20px' }}>
+                        <h3 style={{ marginBottom: '15px' }}>SEO Settings</h3>
+                        <div className="form-group">
+                            <label>Meta Title</label>
+                            <input
+                                type="text"
+                                name="seo.metaTitle"
+                                value={formData.seo.metaTitle}
+                                onChange={handleSeoChange}
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Meta Description</label>
+                            <textarea
+                                name="seo.metaDescription"
+                                value={formData.seo.metaDescription}
+                                onChange={handleSeoChange}
+                                rows="3"
+                                className="form-control"
+                            ></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label>Meta Keywords</label>
+                            <textarea
+                                name="seo.metaKeywords"
+                                value={formData.seo.metaKeywords}
+                                onChange={handleSeoChange}
+                                rows="2"
+                                className="form-control"
+                                placeholder="e.g., printer support, online help, tech support"
+                            ></textarea>
+                        </div>
                     </div>
 
                     <div className="form-actions">

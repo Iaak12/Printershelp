@@ -29,6 +29,11 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         default: 'Admin'
     },
+    seo: {
+        metaTitle: String,
+        metaDescription: String,
+        metaKeywords: String
+    },
     createdAt: {
         type: Date,
         default: Date.now

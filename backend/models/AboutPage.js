@@ -18,7 +18,8 @@ const AboutPageSchema = new mongoose.Schema({
     }],
     seo: {
         metaTitle: { type: String, default: 'About Us - Printer Support' },
-        metaDescription: { type: String, default: 'Learn more about our certified printer support experts.' }
+        metaDescription: { type: String, default: 'Learn more about our certified printer support experts.' },
+        metaKeywords: { type: String, default: '' }
     },
     updatedAt: {
         type: Date,

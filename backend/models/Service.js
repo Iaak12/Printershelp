@@ -27,7 +27,8 @@ const ServiceSchema = new mongoose.Schema({
     },
     seo: {
         metaTitle: String,
-        metaDescription: String
+        metaDescription: String,
+        metaKeywords: String
     },
     createdAt: {
         type: Date,

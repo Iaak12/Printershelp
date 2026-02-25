@@ -12,7 +12,7 @@ const AdminAboutEditor = () => {
         hero: { title: '', subtitle: '', image: '' },
         mission: { title: '', content: '', image: '' },
         features: [],
-        seo: { metaTitle: '', metaDescription: '' }
+        seo: { metaTitle: '', metaDescription: '', metaKeywords: '' }
     });
 
     useEffect(() => {
@@ -225,6 +225,15 @@ const AdminAboutEditor = () => {
                             <div className="form-group">
                                 <label>Meta Description</label>
                                 <textarea className="form-control" value={formData.seo.metaDescription} onChange={e => handleChange('seo', 'metaDescription', e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label>Meta Keywords</label>
+                                <textarea
+                                    className="form-control"
+                                    value={formData.seo.metaKeywords}
+                                    onChange={e => handleChange('seo', 'metaKeywords', e.target.value)}
+                                    placeholder="e.g., printer support, online help, tech support"
+                                />
                             </div>
                         </div>
                     )}
